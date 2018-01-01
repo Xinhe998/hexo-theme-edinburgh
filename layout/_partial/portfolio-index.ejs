@@ -1,19 +1,20 @@
 <div class="col-md-6 col-12 mb-4">
-  <div class="hovereffect">
+  <div class="hovereffect" onclick="javascript:window.location = '<%- config.root %><%- item.path %>'">
     <div>
-      <a href="<%- config.root %><%- item.path %>">
-        <img class="img-fluid portfolio-img" src="<%- config.root %><%- item.cover_image || theme.default_cover_image %>" alt="<%- item.title || theme.default_post_title || "Untitled" %>">
-        <div class="overlay"></div>
-      </a>
-      <a href="<%- config.root %><%- item.path %>" class="product-title"><%- item.title || theme.default_post_title || "Untitled" %></a>
+      <img class="img-fluid portfolio-img" src="<%- config.root %><%- item.cover_image || theme.default_cover_image %>" alt="<%- item.title || theme.default_post_title || "Untitled" %>">
+      <div class="overlay"></div>
+      <p class="product-title"><%- item.title || theme.default_post_title || "Untitled" %></p>
     </div>
     <div class="tags-container">
       <% Object.keys(item.tags).map(function(key, index) { %>
       <span class="tag">
         <%- item.tags.data[index].name %>
-        </span>
+      </span>
+      
       <% }) %>
     </div>
+
+    
     
   </div>
 </div>
