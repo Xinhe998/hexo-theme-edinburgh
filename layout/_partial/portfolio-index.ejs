@@ -15,9 +15,11 @@
         <% }) %>
       <% } else { %>
         <% for(var i = 0; i< item.tags.length ; i++){ %>
+         <% if (item.tags.data[i]) { %>
           <span class="tag">
               <%- item.tags.data[i].name %>
-            </span>
+          </span>
+          <% } %>
         <% } %>
       <% } %>
     </div>
