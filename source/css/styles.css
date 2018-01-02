@@ -231,6 +231,9 @@ h5 {
     opacity: 0;
     filter: alpha(opacity=0);
 } */
+.description{
+    line-height: 2.5rem;
+}
 
 .page-nav {
     width: 50%;
