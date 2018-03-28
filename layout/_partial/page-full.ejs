@@ -3,6 +3,127 @@
     <img class="img-fluid project-img" src="<%- config.root %><%- item.cover_image %>" alt="<%- item.title || "Untitled" %>">
   </div>
 <% } %>
-<div class="col-12 pt-lg-3 mb-4 px-4 portfolio-content">
+<div class="row pt-lg-3 mb-4 px-4 portfolio-content justify-content-sm-end">
   <%- item.content %>
 </div>
+
+<script>
+//定義calssName
+var sideBar = $('.sideBar') ;
+//sideBar距離上面
+var sticky = $('.sideBar').offset().top;
+// var stickyXS = sticky-50;
+var stickySM = sticky-22;
+//裝置寬度
+var deviceWidth = $(window).width();
+//break point
+var smSize = 575.98;
+
+
+
+$(document).ready(function(){
+  console.log('document ready(o)');
+  fixSideBar();
+});
+
+//調整裝置大小時
+$(window).resize(function() {
+  deviceWidth = $(window).width();
+  console.log('resize........to ' + deviceWidth + 'px');
+  showActive(); //重新判斷active的條件
+});
+
+//捲動視窗時  
+$(window).scroll(function(){
+  console.log('----------------\nwindow is scrolling to ' + window.pageYOffset + 
+  'px,\n and sideBar is away from top ' + sideBar.offset().top + ' px\n---------------');  
+  fixSideBar(); //固定sideBar
+  showActive(); //顯示active樣式
+});
+
+
+function showActive() {
+  if( deviceWidth > smSize ){ //裝置高於575.98px時，顯示active的區域
+
+    $('.sideBarContent a').css('border-bottom','none');//把border-bottom的樣式取消
+    
+    if(sideBar.offset().top+22 < 540){
+      $('.js-scroll-trigger').css('border-right','rgba(0, 0, 0, 0.01) 5px solid');
+      $('.js-scroll-trigger').css('color','#595959');
+      $('#aboutTarget').css('border-right','rgba(0, 0, 0, 0.2) 5px solid');
+      $('#aboutTarget').css('color','#050505');
+    }else if(sideBar.offset().top+22 >= 540 && sideBar.offset().top+22 < 1090){
+      $('.js-scroll-trigger').css('border-right','rgba(0, 0, 0, 0.01) 5px solid');
+      $('.js-scroll-trigger').css('color','#595959');      
+      $('#experienceTarget').css('border-right','rgba(0, 0, 0, 0.2) 5px solid');
+      $('#experienceTarget').css('color','#050505');
+    }else if(sideBar.offset().top+22 >= 1090){
+      $('.js-scroll-trigger').css('border-right','rgba(0, 0, 0, 0.01) 5px solid');
+      $('.js-scroll-trigger').css('color','#595959');      
+      $('#skillTarget').css('border-right','rgba(0, 0, 0, 0.2) 5px solid');
+      $('#skillTarget').css('color','#050505');
+    }
+
+  }else{ //裝置低於575.98px時，顯示active的區域
+
+    $('.sideBarContent a').css('border-right','none');//把border-right的樣式取消
+
+    if(window.pageYOffset < 540){
+      $('.js-scroll-trigger').css('border-bottom','rgba(0, 0, 0, 0.01) 5px solid');
+      $('.js-scroll-trigger').css('color','#595959');
+      $('#aboutTarget').css('border-bottom','rgba(0, 0, 0, 0.2) 5px solid');
+      $('#aboutTarget').css('color','#050505');
+    }else if(window.pageYOffset < 1220){
+      $('.js-scroll-trigger').css('border-bottom','rgba(0, 0, 0, 0.01) 5px solid');
+      $('.js-scroll-trigger').css('color','#595959');      
+      $('#experienceTarget').css('border-bottom','rgba(0, 0, 0, 0.2) 5px solid');
+      $('#experienceTarget').css('color','#050505');
+    }else if(window.pageYOffset >= 1220){
+      $('.js-scroll-trigger').css('border-bottom','rgba(0, 0, 0, 0.01) 5px solid');
+      $('.js-scroll-trigger').css('color','#595959');      
+      $('#skillTarget').css('border-bottom','rgba(0, 0, 0, 0.2) 5px solid');
+      $('#skillTarget').css('color','#050505');
+    }
+
+  }
+}
+
+function fixSideBar() {
+  if( deviceWidth > smSize ){
+    if (window.pageYOffset >= stickySM) {
+      $('.sideBar').addClass('sticky');
+    } else {
+      $('.sideBar').removeClass('sticky'); 
+    }
+  }else{
+    if (window.pageYOffset >= 70) {
+      $('.sideBar').addClass('sticky');
+    } else {
+      $('.sideBar').removeClass('sticky'); 
+    }
+  }
+}
+
+
+//點擊sideBarContent的動畫
+$('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {    
+  if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+    var target = $(this.hash);
+    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+    console.log('' + this.hash + '=' + target.offset().top);
+    if (target.length) {
+      if( deviceWidth > smSize ){
+        $('html, body').animate({
+          scrollTop: target.offset().top-20
+        }, 1000, "easeInOutExpo");
+        return false;
+      }else{
+        $('html, body').animate({
+          scrollTop: target.offset().top-140
+        }, 1000, "easeInOutExpo");
+        return false;
+      }
+    }
+  }
+});
+</script>

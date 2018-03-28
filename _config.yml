@@ -4,3 +4,9 @@ google_analytics:
 # Default portfolio post
 default_cover_image: images/unsplash.jpg
 default_post_title: Portfolio Item
+
+# lazyload
+lazyload:
+  enable: true
+  className: .demoImg
+  loadingImg: ../../../../images/svg/loading.svg
