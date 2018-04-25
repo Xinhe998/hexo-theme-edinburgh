@@ -1,5 +1,29 @@
 <nav class="navbar navbar-toggleable-sm navbar-light px-1 py-3 my-3 mb-sm-4">
-  <a class="navbar-brand ml-2" href="<%- config.root %>"><%-config.title || ""%></a>
+  <!-- <a class="navbar-brand ml-2" href="<%- config.root %>"><%-config.title || ""%></a> -->
+  <a class="navbar-brand ml-2" href="<%- config.root %>">
+    <img src="<%- config.root %>images/logo.png" height="48px" class="logo" />
+    <img src="<%- config.root %>images/oracy.png" height="48px" class="oracy" />
+    <script>
+        $('.logo').mouseenter(function(){
+          $(this).attr('src','<%- config.root %>images/logo-hover.png')
+        });
+        $('.logo').mouseleave(function(){
+          $(this).attr('src','<%- config.root %>images/logo.png')
+        });
+        $('.oracy').mouseenter(function(){
+          $(this).attr('src','<%- config.root %>images/oracy-hover.png')
+        });
+        $('.oracy').mouseleave(function(){
+          $(this).attr('src','<%- config.root %>images/oracy.png')
+        });
+        $('.oracy').mousedown(function(){
+          $(this).attr('src','<%- config.root %>images/oracy.png')
+        });
+        $('.oracy').mouseup(function(){
+          $(this).attr('src','<%- config.root %>images/oracy.png')
+        });
+    </script>
+  </a>
   <button class="navbar-toggler navbar-toggler-right py-2" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

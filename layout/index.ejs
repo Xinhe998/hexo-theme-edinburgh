@@ -2,6 +2,7 @@
 <% page.posts.forEach(function(item){ %>
     <% itemNum = itemNum + 1; %>
 <% }); %>
+
 <% page.posts.forEach(function(item){ %>
-    <%- partial('_partial/portfolio-index', {item: item,itemNum: itemNum}) %>
+        <%- partial('_partial/portfolio-index', {item: item,itemNum: itemNum}) %>  
 <% }); %>

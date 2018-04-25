@@ -12,6 +12,7 @@
       <h5></h5>
       <p></p>
       <p></p>
+      <a href="" role="button">查看詳細介紹Go</a>
   </div>
   <div id="expGallery" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -20,10 +21,10 @@
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img id="expGalleryImg-1" class="d-block w-100" src="" alt="First slide">
+        <img id="expGalleryImg-1" class="d-block" src="" alt="First slide">
       </div>
       <div class="carousel-item">
-        <img id="expGalleryImg-2" class="d-block w-100" src="" alt="Second slide">
+        <img id="expGalleryImg-2" class="d-block" src="" alt="Second slide">
       </div>
     </div>
     <a class="carousel-control-prev" href="#expGallery" role="button" data-slide="prev">
@@ -165,13 +166,33 @@ $('.btn_more').click(function() {
   var title = clicked_content.data('title');
   var subtitle = clicked_content.data('subtitle');
   var des = clicked_content.data('des');
-
-  $('#expGalleryImg-1').attr('src',src1);
-  $('#expGalleryImg-2').attr('src',src2);
+  var haslink = clicked_content.data('haslink');
+  var link = clicked_content.data('link');
+  
+  if(src1 !== 'none' && src2 !== 'none'){
+    $('#expGallery').css('display','flex');
+    $('#expArticle').css('width','50%');
+    $('#expGalleryImg-1').attr('src',src1);
+    $('#expGalleryImg-2').attr('src',src2);
+  }else if(src1 !== 'none' && src2 == 'none'){
+    $('#expGallery').css('display','flex');
+    $('#expArticle').css('width','50%');
+    $('#expGalleryImg-1').attr('src',src1);
+    $('#expGalleryImg-2').attr('src',src1);
+  }else if(src1 == 'none' && src2 == 'none'){
+    $('#expGallery').css('display','none');
+    $('#expArticle').css('width','100%');
+  }
+ 
   $('#expArticle h5').html(title);
   $('#expArticle p:first').html(subtitle);
   $('#expArticle p:last').html(des);
   $('.expWindow').addClass('window-show');
+  if( haslink == 'yes' ){
+    $('#expArticle a').attr('href',link);
+  }else if( haslink == 'none' ){
+    $('#expArticle a').css('display','none');
+  }
 })
 
 $('.close-tag').click(function(){
