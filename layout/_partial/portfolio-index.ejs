@@ -1,5 +1,5 @@
-<div class="col-md-6 col-12 mb-4">
-  <div class="workCard" onclick="javascript:window.location = '<%- config.root %><%- item.path %>'">
+<div class="col-sm-4 col-12 mb-4">
+  <div class="workCard" onclick="javascript: window.location = '<%- config.root %><%- item.path %>' + window.location.hash">
     <div>
       <img class="img-fluid portfolio-img" src="<%- config.root %><%- item.cover_image || theme.default_cover_image %>" alt="<%- item.title || theme.default_post_title || "Untitled" %>">
       <div class="overlay"></div>
@@ -10,7 +10,7 @@
       <% if (itemNum <= 1) { %>
         <% Object.keys(item.tags).map(function(key, index) { %>
         <span class="tag">
-          <%- item.tags.data[index].name %>
+          <%- item.tags.name %>
         </span>
         <% }) %>
       <% } else { %>

@@ -1,26 +1,53 @@
 <nav class="navbar navbar-toggleable-sm navbar-light px-1 py-3 my-3 mb-sm-4">
   <!-- <a class="navbar-brand ml-2" href="<%- config.root %>"><%-config.title || ""%></a> -->
-  <a class="navbar-brand ml-2" href="<%- config.root %>">
-    <img src="<%- config.root %>images/logo.png" height="48px" class="logo" />
-    <img src="<%- config.root %>images/oracy.png" height="48px" class="oracy" />
+  <a class="navbar-brand ml-2 d-flex flex-column align-items-center" href="<%- config.root %>">
+    <img src="<%- config.root %>images/logo.png" width="48px" height="48px" class="logo" />
+    <img src="<%- config.root %>images/oracy.png" width="48px" height="20px" class="oracy" />
+    <style>
+      .lora-o{
+        transition: all .5s;
+        margin-top: -28px;
+        z-index: -1;
+      }
+      .lora-r{
+        transition: all .5s;
+        margin-top: -36px;
+        z-index: -2;
+      }
+      .lora-a{
+        transition: all .5s;
+        margin-top: -36px;
+        z-index: -3;
+      }
+      .lora-hover{
+        transition: all .5s;
+        margin-top: 0!important;
+      }
+    </style>
     <script>
         $('.logo').mouseenter(function(){
-          $(this).attr('src','<%- config.root %>images/logo-hover.png')
+          $(this).attr('src','<%- config.root %>images/logo-hover.png');
+          $('.lora-o').addClass('lora-hover');
+          $('.lora-r').addClass('lora-hover');
+          $('.lora-a').addClass('lora-hover');
         });
         $('.logo').mouseleave(function(){
-          $(this).attr('src','<%- config.root %>images/logo.png')
+          $(this).attr('src','<%- config.root %>images/logo.png');
+          $('.lora-o').removeClass('lora-hover');
+          $('.lora-r').removeClass('lora-hover');
+          $('.lora-a').removeClass('lora-hover');
         });
         $('.oracy').mouseenter(function(){
-          $(this).attr('src','<%- config.root %>images/oracy-hover.png')
+          $(this).attr('src','<%- config.root %>images/oracy-hover.png');
         });
         $('.oracy').mouseleave(function(){
-          $(this).attr('src','<%- config.root %>images/oracy.png')
+          $(this).attr('src','<%- config.root %>images/oracy.png');
         });
         $('.oracy').mousedown(function(){
-          $(this).attr('src','<%- config.root %>images/oracy.png')
+          $(this).attr('src','<%- config.root %>images/oracy.png');
         });
         $('.oracy').mouseup(function(){
-          $(this).attr('src','<%- config.root %>images/oracy.png')
+          $(this).attr('src','<%- config.root %>images/oracy.png');
         });
     </script>
   </a>
@@ -31,10 +58,48 @@
     <ul class="navbar-nav ml-auto my-auto">
       <% for (var i in config.menu){ %>
         <li class="nav-item">
-          <a class="nav-link" href="<%- url_for(config.menu[i]) %>"><%= i %></a>
+          <% if(i==='Contact') { %>
+            <div class="dropdown" id="ContactMenuList">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                Contact
+              </a>
+              <div class="dropdown-menu">
+                <div id="ContactMenuListEmailArea" class="d-flex flex-column border px-3 pb-3 pt-2">
+                  <p class="d-flex align-items-center py-1">
+                    <i data-feather="mail"></i>
+                    lora860227@gmail.com
+                  </p>
+                  <div class="d-flex mt-1">
+                    <a class="dropdown-item mx-1" id="" href="#" onclick="copyInfo('#clipboard_email')">
+                      <i data-feather="copy"></i>Copy
+                    </a>
+                    <a class="dropdown-item mx-1" target="_blank" href="mailto:lora860227@gmail.com">
+                      <i data-feather="send"></i>Send
+                    </a>
+                  </div>
+                </div>
+                <a class="dropdown-item border-top py-2 px-3" target="_blank" href="https://www.linkedin.com/in/lora-lin/">
+                  <i data-feather="linkedin"></i>
+                  Linkedin
+                </a>
+                <a class="dropdown-item border-top py-2 px-3" href="#" onclick="copyInfo('#clipboard_phone')">
+                  <i data-feather="phone"></i>Phone Number
+                </a>
+              </div>
+            </div>
+          <% } else{ %>
+              <a class="nav-link" href="<%- url_for(config.menu[i]) %>"><%= i %></a>
+          <% } %>
         </li>
       <% } %>
+      
     </ul>
     <hr class="hidden-md-up" />
   </div>
 </nav>
+<a id="clipboard_phone" class="d-none">
+  <span class="d-none">0983816167</span>
+</a>
+<a id="clipboard_email" class="d-none">
+  <span class="d-none">lora860227@gmail.com</span>
+</a>

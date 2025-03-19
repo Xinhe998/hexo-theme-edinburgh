@@ -8,6 +8,14 @@
 
     gtag('config', 'UA-116007084-1');
     </script>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M7F3F7C');</script>
+    <!-- End Google Tag Manager -->
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,9 +31,10 @@
   <title><%= title.join(' - ') %></title>
 
   <!--Favicon-->
-  <!-- <link rel="icon" href="favicon/favicon.ico"> -->
+  <link rel="icon" href="<%- config.root %>favicon/favicon.ico">
+  <!-- <link rel="icon" href="<%- config.root %>favicon/logo.svg"> -->
   <!-- <link rel="icon" href="favicon/icon.svg"> -->
-  <link rel="shortcut icon" type="image/png" href="favicon/icon.svg"/>
+  <!-- <link rel="shortcut icon" type="image/png" href="favicon/icon.svg"/> -->
 
   <!--Description-->
   <% if (page.description){ %>
@@ -66,4 +75,10 @@
 <!-- <script src="//cdn.jsdelivr.net/velocity/1.1.0/velocity.min.js"></script> -->
 <!-- <script src="script.js"></script> -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+
+<!-- Other -->
+<!-- Fix Safari Problems -->
+<script src="https://unpkg.com/event-target@latest/min.js"></script>
+<script src="https://unpkg.com/resize-observer-polyfill@1.5.0/dist/ResizeObserver.global.js"></script>
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=IntersectionObserver"></script>
 </head>
