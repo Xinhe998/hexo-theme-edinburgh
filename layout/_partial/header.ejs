@@ -25,6 +25,39 @@
       }
     </style>
     <script>
+        let toastTimeout = null;
+        let toastRemainingTime = 0;
+
+        function copyInfo(id) {
+          const $temp = $('<input>');
+          const text = $(id).children('span').text();
+
+          if(text != '' || text != null || text != undefined) { 
+            $('body').append($temp);
+            $temp.val(text).select();
+            document.execCommand('copy');
+            $temp.remove();
+            popUpDialog(`<b>${text}</b> has been copied to your clipboard.`);
+          }
+        }
+
+        function popUpDialog(content){
+          $toast = $('.popup');
+          $toast.html(content).addClass('popupshow'); 
+
+          if (toastTimeout) {
+            clearTimeout(toastTimeout);
+            toastRemainingTime = 2250;
+          } else {
+            toastRemainingTime = 1250;
+          }
+
+          toastTimeout = setTimeout(() => {
+            $toast.removeClass('popupshow');
+            toastTimeout = null;
+          }, toastRemainingTime);
+        }
+
         $('.logo').mouseenter(function(){
           $(this).attr('src','<%- config.root %>images/logo-hover.png');
           $('.lora-o').addClass('lora-hover');
@@ -51,7 +84,7 @@
         });
     </script>
   </a>
-  <button class="navbar-toggler navbar-toggler-right py-2" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler navbar-toggler-right py-2 mt-2" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse text-center" id="navbarCollapse">

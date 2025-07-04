@@ -1,27 +1,81 @@
 <%- partial('_partial/portfolio-full', {item: page}) %>
-<div class="window">
+<div class="portfolioWindow">
+
     <div class="close-tag"></div>
     <img src=""/>
+
+    <div class="previous-tag">
+        <i data-feather="arrow-left"></i>
+    </div>
+    <div class="next-tag">
+        <i data-feather="arrow-right"></i>
+    </div>
 </div>
-<!-- popup modal js -->
 <script>
+    let $precentImg, $prevImg, $nextImg;
+
+    $('.previous-tag').click(function(){
+        $precentImg = $prevImg.length == 0 ? $precentImg : $prevImg;
+        $prevImg = $precentImg.prev('.demoImg').length == 0 ? $precentImg : $precentImg.prev('.demoImg');
+        $nextImg =  $precentImg.next('.demoImg');
+        $('.next-tag').show();
+
+        if($prevImg == $precentImg) {
+            $('.previous-tag').hide();
+        }
+
+        const src = $precentImg.attr('src');
+        $('.portfolioWindow img').attr('src', src)
+    });
+    
+    $('.next-tag').click(function(){
+        $precentImg = $nextImg.length == 0 ? $precentImg : $nextImg;
+        $prevImg =  $precentImg.prev('.demoImg');
+        $nextImg =  $precentImg.next('.demoImg').length == 0 ? $precentImg : $precentImg.next('.demoImg');
+        $('.previous-tag').show();
+
+        if($nextImg == $precentImg) {
+            $('.next-tag').hide();
+        }
+
+        const src = $precentImg.attr('src');
+        $('.portfolioWindow img').attr('src', src);
+    });
+    
     $('.demoImg').click(function(){
-        console.log('demoImg is clicked');
-        var src = this.src;
-        $('.window img').attr('src',src);
-        $('.window').addClass('window-show');
+        const src = this.src;
+        
+        $precentImg =  $(this);
+        $prevImg =  $precentImg.prev('.demoImg');
+        $nextImg =  $precentImg.next('.demoImg');
+        
+        if($prevImg.length == 0  && $nextImg.length == 0) {
+            $('.previous-tag, .next-tag').hide();
+        } else {
+            if($prevImg.length == 0) {
+                $('.previous-tag').hide();
+                $('.next-tag').show();
+            } else if($nextImg.length == 0) {
+                $('.next-tag').hide();
+                $('.previous-tag').show();
+            } else {
+                $('.next-tag, .previous-tag').show();
+            }
+        }
+
+        $('.portfolioWindow img').attr('src', src);
+        $('.portfolioWindow').addClass('window-show');
     });
 
     $('.close-tag').click(function(){
-        console.log('close-tag clicked');
-        $('.window').removeClass('window-show');
+        $('.portfolioWindow').removeClass('window-show');
     });
 
     $(document).keyup(function(e){
         var keyWhich =  e.which;
         var keyCode =  e.keyCode;
         if(keyWhich == 27 || keyCode == 27){
-            $('.window').removeClass('window-show');
+            $('.portfolioWindow').removeClass('window-show');
         }
     });        
 </script>

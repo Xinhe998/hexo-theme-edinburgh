@@ -2,30 +2,24 @@
 <html class="myWeb" lang="en">
   <!-- Head tag -->
   <%- partial('_partial/head') %>
-
   <body>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M7F3F7C"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    
   	<div class="container-fluid navbar-container m-sm-5">
       <!-- Header -->
       <%- partial('_partial/header') %>
-      
-  		<div class="row maxWidth">
-  			<%- body %>
+      <div class="row maxWidth">
+        <%- body %>
       </div>
       <% if (page.total > 1) { %>
-    <nav class="page-nav">
-        <%- paginator({prev_text: '<', next_text: '>'}) %>
-    </nav>
-<% } %>
+        <nav class="page-nav">
+            <%- paginator({prev_text: '<', next_text: '>'}) %>
+        </nav>
+      <% } %>
   	</div>
-<div class="popup"></div>
-
-
-    <!-- After footer scripts -->
+    <div class="popup"></div>
     <%- partial('_partial/footer') %>
   </body>
 </html>

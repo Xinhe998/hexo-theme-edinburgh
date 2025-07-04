@@ -4,7 +4,7 @@
       
 <div class="col-12 col-lg-8 offset-lg-2 pt-3 titleSection">
   <h1><%- item.title || theme.default_post_title || "Untitled" %></h1>
-</div><!-- titleSection -->
+</div>
 
 <div class="col-1 col-sm-1 col-md-3 col-lg-3 pt-lg-3 mb-0 mb-md-4 portfolioSidebar">
   <div class="portfolioSidebar-container portfolioSidebar-relative d-flex flex-row justify-content-end">
@@ -13,24 +13,40 @@
     <div class="portfolioSidebar-progress">
     </div>
   </div>
-</div><!-- portfolioSidebar -->
+</div>
 
-<!-- <div class="col-12 col-md-7 pt-lg-3 mb-4 portfolioSection"> -->
-<div class="col-12 col-sm-9 col-md-8 col-lg-8 pt-lg-3 mb-4 portfolioSection">
+<div class="col-12 col-sm-9 col-md-8 col-lg-8 pt-lg-3 mb-4 pb-md-0 pb-5 portfolioSection">
   <%- item.content %>
-</div><!-- portfolioSection -->
+</div>
 
-<div class="col-12 d-flex flex-column align-items-center thankSection">
-  <p><span></span>感謝你的觀看：）</p>
-  <a class="text-center" role="button" id="gotoTop">回到最上面</a>
-</div><!-- thankSection -->
+<div class="col-12 d-flex justify-content-center align-items-center thankSection">
+  <a class="text-center mx-2" role="button" href="/resume/">
+    <i data-feather="file-text"></i>Resume
+  </a>
+  <a class="text-center mx-2" role="button" target="_blank" href="mailto:lora860227@gmail.com">
+    <i data-feather="send"></i>Contact
+  </a>
+  <a class="text-center mx-2" role="button" id="gotoTop">
+    <i data-feather="arrow-up"></i>Top
+  </a>
+  <% if(page.prev){ %> 
+  <a class="text-center mx-2 d-none" role="button" href="/<%- page.prev.path %>" id="previousPage">
+    <i data-feather="arrow-left-circle"></i>Previous
+  </a>
+  <% } %>
+  <% if(page.next){ %>
+  <a class="text-center mx-2 d-none" role="button" href="/<%- page.next.path %>" id="nextPage">
+    <i data-feather="arrow-right-circle"></i>Next
+  </a>
+  <% } %>
+</div>
 
 <div class="col-12 col-lg-10 offset-lg-1 my-5 my-md-4 my-lg-0 d-flex justify-content-between navigateSection">
   <% if(page.prev){ %>  
     <a class="d-flex align-items-center link-prevPage" href="" data-link="<%- page.prev.path %>">
       <img src="/images/svg/arrow-left.svg"/>
       <p class="d-flex flex-column align-items-start mb-0 ml-md-3">
-        <span>上一篇</span>
+        <span>Previous</span>
         <%= page.prev.title %>
       </p>
     </a>
@@ -41,7 +57,7 @@
   <% if(page.next){ %>
     <a class="d-flex align-items-center link-nextPage" href="" data-link="<%- page.next.path %>">
       <p class="d-flex flex-column align-items-end mb-0 mr-md-3">
-        <span>下一篇</span>
+        <span>Next</span>
         <%= page.next.title %>
       </p>
       <img src="/images/svg/arrow-right.svg"/>
@@ -49,14 +65,38 @@
   <% } else { %>
     <a class="d-flex align-items-center" href="#"></a>
   <% } %>
-</div><!-- navigateSection -->
-
+</div>
 
 <script>
     //裝置寬度
     var deviceWidth = $(window).width();
     //break point
     var smSize = 767.9;
+
+    $(document).ready(function(){
+      toggleSmNavigation();
+    });
+
+    $(window).resize(function() {
+        toggleSmNavigation();
+    });
+
+    function toggleSmNavigation() {
+      if($('#previousPage').length != 0) {
+        if(deviceWidth > smSize) {
+          $('#previousPage').addClass('d-none');
+        } else {
+          $('#previousPage').removeClass('d-none');
+        }
+      }
+      if($('#nextPage').length != 0) {
+        if(deviceWidth > smSize) {
+          $('#nextPage').addClass('d-none');
+        } else {
+          $('#nextPage').removeClass('d-none');
+        }
+      }
+    }
 
     //讓大標題前面有方塊圖案
     $('.portfolioSection h3').prepend('<img src="../images/dot.png" height="36px" class="" />');
@@ -72,27 +112,20 @@
     $('.link-nextPage').attr('href', '../../' + nextLink + guestName);
     $('.link-prevPage').attr('href', '../../' + prevLink + guestName);
     
-    //＝＝＝＝＝＝＝＝＝＝＝＝有關作品集旁邊的sidebar＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-
-    //得到作品集裡面所有的大標題
     var obj = $('.portfolioSection h3');
     
     //把作品集裡所有的大標題，弄成旁邊進度條的可點擊之Menu
-    $.each( obj, function( key, value ) {
-      console.log(value.offsetTop);
+    $.each( obj, function(key, value) {
       if( deviceWidth > smSize ){
-        $('.portfolioSidebar-h3list')
-        .append('<a onclick="console.log(\''+ value +'\')" class="portfolioSidebar-Item" id="portfolioSidebar-Item-'+ key +'">'+value.textContent+'</a>');
+        $('.portfolioSidebar-h3list').append('<a class="portfolioSidebar-Item" id="portfolioSidebar-Item-'+ key +'">'+value.textContent+'</a>');
       }else{
-        $('.portfolioSidebar-h3list')
-        .append('<a onclick="console.log(\''+ value +'\')" class="portfolioSidebar-Item" id="portfolioSidebar-Item-'+ key +'">'+(key+1)+'</a>');
+        $('.portfolioSidebar-h3list').append('<a class="portfolioSidebar-Item" id="portfolioSidebar-Item-'+ key +'">'+(key+1)+'</a>');
       }
     });
-    
-    //點擊progress的item，會滑到該項目的文章
+
     $('.portfolioSidebar-Item').click(function() {
       var target = $(this).index();
-      console.log(obj[target].offsetTop);
+
       if( deviceWidth > smSize ){
         $('html, body').animate(
           {scrollTop: obj[target].offsetTop + 870}, 1000, "easeInOutExpo");
@@ -105,18 +138,8 @@
     $(window).scroll(function(){
       fixPortfolioSidebar();
       progessBar();
-      
-      //＝＝＝＝＝＝＝＝＝＝＝＝＝debug用＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-      // console.log('Window Offset = ' + window.pageYOffset);
-      // console.log('h3[3] = ' + obj[0].offsetTop);
-      // console.log('h3[3] = ' + obj[1].offsetTop);
-      // console.log('h3[3] = ' + obj[2].offsetTop);
-      // console.log('h3[3] = ' + obj[3].offsetTop);
-      //＝＝＝＝＝＝＝＝＝＝＝＝＝debug用＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-    
     });
     
-    // fix the side bar beside the article
     function fixPortfolioSidebar(){
       var addSticky = $('.titleSection').offset().top + 100;
       if( deviceWidth >= smSize ){
@@ -147,4 +170,17 @@
       var currentHeight = window.pageYOffset;
       $('.portfolioSidebar-progress').css('height', currentHeight / totalHeight * 100 +'%');
     }
-    </script>
+
+    function copyUrl(url) {
+      const $temp = $('<input>');
+      const text = url;
+
+      if(text != '' || text != null || text != undefined) { 
+        $('body').append($temp);
+        $temp.val(text).select();
+        document.execCommand('copy');
+        $temp.remove();
+        popUpDialog(`The URL has been copied to your clipboard.`);
+      }
+    }
+  </script>
